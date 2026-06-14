@@ -1,0 +1,24 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Passcode identity check helper
+    function isValidPasscode(passcode) {
+      return passcode is string && passcode.size() == 13 && passcode.matches('^[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{3}$');
+    }
+
+    // Identities collection rules
+    match /identities/{identityId} {
+      allow get, write: if isValidPasscode(identityId);
+      
+      // Sessions subcollection rules
+      match /sessions/{sessionId} {
+        allow read, write: if isValidPasscode(identityId) && sessionId.size() <= 128;
+      }
+    }
+  }
+}
