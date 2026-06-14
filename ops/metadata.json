@@ -1,8 +1,0 @@
-{
-  "name": "AI Multi-Model Comparison Workspace",
-  "description": "Compare answers from multiple leading AI models simultaneously in a single workspace. Research faster, write better, and make smarter decisions with side-by-side AI intelligence.",
-  "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
-}
